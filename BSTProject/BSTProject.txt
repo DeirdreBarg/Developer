@@ -1,0 +1,147 @@
+import java.util.Scanner;
+
+/**
+ * BSTProject
+ * By : Deirdre Barg
+ * 
+ */
+public class BSTProject {
+
+    static BST bst;
+    static Scanner scan = new Scanner(System.in);
+
+    /**
+     * Displays menu options to User 
+     */
+    public static void displayMenu(){
+        System.out.println("1. Create a binary search tree");
+        System.out.println("2. Add a node");
+        System.out.println("3. Delete a node");
+        System.out.println("4. Print nodes by InOrder");
+        System.out.println("5. Print nodes by PreOrder");
+        System.out.println("6. Print nodes by PostOrder");
+        System.out.println("7. Exit program");
+    }
+
+    /**
+     * Calls the functions based on User Choice
+     * @param userOption the menu option the User chose 
+     *      */
+    public static void execute(int userOption) {
+
+        switch (userOption) {
+            case 1:
+                createBST();
+                break;
+            case 2:
+                int val = getAddValue();
+                addNode(val);
+                break;
+            case 3:
+                int value = getDeleteVal();
+                deleteNode(value);
+                break;
+            case 4:
+                printInOrder();
+                break;
+            case 5:
+                printPreOrder();
+                break;
+            case 6:
+                printPostOrder();
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    /**
+     * Creates a BST
+     * If one already exisited, it is overwritten 
+     */
+    public static void createBST() {
+        bst = new BST();
+    }
+
+    /**
+     * Adds New Node
+     */
+    public static void addNode(int data) {
+        bst.addNode(data);
+    }
+
+    /**
+     * Deletes given Node
+     */
+    public static void deleteNode(int val) {
+        bst.deleteNode(val);
+    }
+
+    /**
+     * Prints BST In-Order Traversal
+     */
+    public static void printInOrder() {
+        bst.printInOrder();
+    }
+
+    /**
+     * Prints BST in Pre-Order Traversal 
+     */
+    public static void printPreOrder() {
+        bst.printPreOrder();
+    }
+
+    /**
+     * Prints BST in Post-Order Traversal 
+     */
+    public static void printPostOrder() {
+        bst.printPostOrder();
+    }
+
+    /**
+     * Gets the value to Add to BST
+     * @return the value to add to BST
+     */
+    public static int getAddValue() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("What do you want to add to your BST?");
+        int val = sc.nextInt();
+        // sc.close();
+        return val;
+    }
+
+    /**
+     * Gets the value to DELETE from BST
+     * @return the val to DELETE if there
+     */
+    public static int getDeleteVal() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("What do you want to Delete from your BST?");
+        int val = sc.nextInt();
+        sc.close();
+        return val;
+    }
+
+    /**
+     * Gets input from user for Choice
+     * @return the choice from User
+     */
+    public static int getValidUserChoice() {
+        displayMenu();
+        System.out.println("Select an Option 1 - 7!");
+        int userOption = scan.nextInt();
+        return userOption;
+        
+    }
+
+    
+    public static void main(String[] args) {                
+        boolean shouldContinue = true;
+        while (shouldContinue) {
+            int choice = getValidUserChoice();
+            execute(choice); 
+            shouldContinue = choice != 7;
+        }
+    }
+}

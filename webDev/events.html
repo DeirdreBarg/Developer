@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <nav class="navbar">
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="events.html">Events</a></li>
+    </ul>
+    <div class="nav-buttons">
+      <button id="viewCartButton">View Cart</button>
+      <button id="clearCartButton">Clear Cart</button>
+      <button>Check Out</button>
+    </div>
+  </nav>
+  <div id="cartModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Your Cart</h2>
+      <ul id="cartItems">
+
+        <!-- Cart items will be dynamically added here -->
+      </ul>
+    </div>
+  </div>
+  <div>
+    <h1>Events</h1>
+
+  </div>
+
+  <!-- Event section -->
+  <section class="containerEvent">
+
+    <div class="events">
+      <div class="top">
+        <div>
+          <img src="assets/bookclub.webp" alt="BookClub">
+        </div>
+        <div>
+          <p>
+          <h2>Join one of our Book Clubs!
+            Romance Adventure History
+          </h2>
+          </p>
+        </div>
+      </div>
+
+      <div class="bottom">
+        <div>
+          <p>
+          <h2>
+            Meet new Friends
+            at our neighborhood social every Thursday!
+          </h2>
+          </p>
+        </div>
+        <div>
+          <img src="assets/last book.webp" alt="LastBook">
+        </div>
+      </div>
+
+    </div>
+
+    <div class="contactUs">
+      <div>
+        <h1>Contact Us</h1>
+      </div>
+
+      <div class="contactBoxes">
+        <h4>Name</h4>
+        <input type="text" placeholder="Your Name">
+        <h4>Email</h4>
+        <input type="email" placeholder="Your Email">
+        <h4>Message</h4>
+        <textarea placeholder="Your Message"></textarea>
+        <button id="submitButton">Submit</button>
+      </div>
+
+
+    </div>
+
+  </section>
+
+  <footer class="end">
+    <button>Subscribe</button>
+    <p>Book Haven</p>
+    <p>123 Main Street</p>
+    <p>Anytown, USA 12345</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,153 @@
+/**
+ * BadCharSearch
+ * By : Deirdre Barg
+ */
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+
+public class BadCharSearch {
+
+    static Scanner scan = new Scanner(System.in);
+    static String states = "";
+
+    /**
+     * Prints Menu Options
+     */
+    public static void displayMenu() {
+        System.out.println("Welcome! Choose a number..");
+        System.out.println("1. Display the Text");
+        System.out.println("2. Search");
+        System.out.println("3. Exit Program");
+    }
+
+    /**
+     * Getting User Choice
+     * @return the User choice
+     */
+    public static int getUserChoice() {
+        displayMenu();
+        int choice = scan.nextInt();
+        return choice;
+    }
+
+    /**
+     * Getting String pattern
+     * @return The String Pattern 
+     */
+    public static String getPattern() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("What pattern would you like to search for?");
+        String pattern = scanner.nextLine();
+        return pattern; 
+    }
+
+    /**
+     * Process user choice
+     * @param choice The menu option chose
+     */
+    public static void processChoice(int choice) {
+        switch (choice) {
+            case 1:
+                printStates(states);
+                break;
+            case 2:
+                String pattern = getPattern();
+                search(states, pattern);
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * Prints the States String
+     * @param states in a String format
+     */
+    public static void printStates(String states) {
+        System.out.println(states);
+    }
+
+
+    /**
+     * Turns the States from txt file into String 
+     */
+    public static void processStates() {
+        String filePath = "50States.txt";
+        try (Scanner scanner = new Scanner(new File(filePath))) {
+            while (scanner.hasNextLine()) {
+                states += scanner.nextLine();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    
+    }
+
+    /**
+     *  Function to implement the bad character rule of Boyer-Moore algorithm 
+     */
+    public static List<Integer> search(String text, String pattern) {
+        List<Integer> result = new ArrayList<>();
+        int m = pattern.length();
+        int n = text.length();
+
+        int s = 0; // s is the shift of the pattern with respect to text
+
+        while (s <= (n - m)) {
+            int j = m - 1;
+
+            // Keep reducing index j of pattern while characters of pattern and text are matching
+            while (j >= 0 && pattern.charAt(j) == text.charAt(s + j)) {
+                j--;
+            }
+
+            // If the pattern is present at current shift, then j will be -1 after the above loop
+            if (j < 0) {
+                result.add(s);
+                // Shift the pattern so that the next character in text aligns with the last occurrence of it in pattern
+                // This shift moves the pattern forward by one position 
+                s += (s + m < n) ? m : 1;
+            } else {
+                // Shift the pattern so that the bad character in text aligns with the last occurrence of it in pattern
+                s += Math.max(1, j - lastOccurrence(text.charAt(s + j), pattern));
+            }
+        }
+
+        if (result.isEmpty()) {
+            System.out.println("Pattern not found.");
+        } else {
+            System.out.println("Pattern found at shifts: " + result);
+        }
+        return result;
+    }
+
+    /**
+     * Function to find the last occurrence of a character
+     * @param badChar What we want to skip on
+     * @param pattern What we are looking for
+     * @return the index of user Pattern or -1 
+     */
+    private static int lastOccurrence(char badChar, String pattern) {
+        for (int i = pattern.length() - 1; i >= 0; i--) {
+            if (pattern.charAt(i) == badChar) {
+                return i;
+            }
+        }
+        return -1; // If the character is not found in the pattern
+    }
+
+    public static void main(String[] args) {
+        processStates();
+        boolean shouldKeepGoing = true;
+        while (shouldKeepGoing) {
+            int choice = getUserChoice();
+            processChoice(choice);    
+            if (choice == 3) {
+                shouldKeepGoing = false;
+            }
+        }
+    }
+}

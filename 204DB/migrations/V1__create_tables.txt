@@ -1,0 +1,39 @@
+-- Create Author Table if it does not exist
+CREATE TABLE IF NOT EXISTS Author (
+    AuthorID INTEGER PRIMARY KEY,
+    AuthorFirstName TEXT NOT NULL,
+    AuthorLastName TEXT NOT NULL,
+    AuthorNationality TEXT NOT NULL,
+    UNIQUE (AuthorFirstName, AuthorLastName, AuthorNationality)
+);
+
+-- Create Client Table if it does not exist
+CREATE TABLE IF NOT EXISTS Client (
+    ClientID INTEGER PRIMARY KEY AUTOINCREMENT,
+    ClientFirstName TEXT NOT NULL,
+    ClientLastName TEXT NOT NULL,
+    ClientDOB TEXT NOT NULL,
+    Occupation TEXT NOT NULL,
+    UNIQUE (ClientFirstName, ClientLastName)
+);
+
+-- Create Book Table if it does not exist
+CREATE TABLE IF NOT EXISTS Book (
+    BookID INTEGER PRIMARY KEY AUTOINCREMENT,
+    AuthorID INTEGER NOT NULL,
+    BookTitle TEXT NOT NULL,
+    Genre TEXT NOT NULL,
+    FOREIGN KEY (AuthorID) REFERENCES Author(AuthorID),
+    UNIQUE (BookTitle, AuthorID)
+);
+
+-- Create Borrower Table if it does not exist
+CREATE TABLE IF NOT EXISTS Borrower (
+    BorrowID INTEGER PRIMARY KEY AUTOINCREMENT,
+    ClientID INTEGER NOT NULL,
+    BookID INTEGER,
+    BorrowDate TEXT NOT NULL,
+    FOREIGN KEY (ClientID) REFERENCES Client(ClientID),
+    FOREIGN KEY (BookID) REFERENCES Book(BookID),
+    UNIQUE (BookID, ClientID, BorrowDate)
+);

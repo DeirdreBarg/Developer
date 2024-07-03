@@ -1,0 +1,159 @@
+/**
+ * BSTProject
+ * By : Deirdre Barg
+ * 
+ */
+
+public class BST {
+    private Node root;
+
+    private class Node{
+        int data;
+        Node right;
+        Node left;
+
+        Node(int data) {
+            this.data = data;
+            right = null;
+            left = null;
+        }
+    }
+
+    //Public Constructor 
+    public BST() {
+        root = null; 
+    }
+
+    public void addNode(int data) {
+        // No root -> make root
+        if (root == null) {
+            root = new Node(data);
+        }
+        else {
+            addNode(root, data);
+        }
+    }
+
+    /**
+     * Recursivly goes through tree to find where to put the node
+     * @param curr The node used for recursion
+     * @param data The data that is being inserted
+     * @return 
+     */
+    private void addNode(Node curr, int data) {
+        // BC: We found data in BT -> don't do anything
+        if (data == curr.data) {
+            return;
+        }
+        // BC: add on right
+        if (data > curr.data && curr.right == null) {
+            curr.right = new Node(data);
+            return;
+        }
+        // BC: add on left
+        if (data < curr.data && curr.left == null) {
+            curr.left = new Node(data);
+            return;
+        }
+
+        // Traverse for bigger number
+        if (data > curr.data) {
+            addNode(curr.right, data);
+        }
+        // Traverse for smaller number
+        if (data < curr.data) { 
+            addNode(curr.left, data);                    
+        }
+    }
+
+
+    public void deleteNode(int val) {
+        if (root.data == val) {
+            root = null;
+        }
+        else {
+            deleteNode(root, val);
+        }
+    }
+
+    private void deleteNode(Node current, int val) {
+        if (current == null) {
+            return;
+        }
+
+        if (current.data == val) {
+            current = null;
+        }
+
+
+        // Val is to the right
+        if (val > current.data) {
+            deleteNode(current.right, val);
+        }
+        // Val is to the left   
+        if (val < current.data) {
+            deleteNode(current.left, val);
+        }
+    }
+
+    public void printInOrder() {
+        printInOrder(root);
+        System.out.println();
+    }
+
+    private void printInOrder(Node cur) {
+        // BC: Null check
+        if (cur == null) {
+            return;
+        }
+
+        // Process left
+        printInOrder(cur.left);
+        // Print current
+        System.out.printf("%s, ", cur.data);
+        // Process right
+        printInOrder(cur.right);
+    }
+
+    public void printPreOrder() {
+        printPreOrder(root);
+        System.out.println();
+    }
+
+    private void printPreOrder(Node cur) {
+        // BC: Null check
+        if (cur == null) {
+            return;
+        }
+
+        // Print current
+        System.out.printf("%s, ", cur.data);
+        // Process left
+        printInOrder(cur.left);
+        // Process right
+        printInOrder(cur.right);
+    }
+
+    public void printPostOrder() {
+        printPostOrder(root);
+        System.out.println();
+    }
+
+    private void printPostOrder(Node cur) {
+        // BC: Null check
+        if (cur == null) {
+            return;
+        }
+
+        // Process left
+        printInOrder(cur.left);
+        // Process right
+        printInOrder(cur.right);
+        // Print current
+        System.out.printf("%s, ", cur.data);
+    }
+}
+
+
+   
+         

@@ -1,0 +1,74 @@
+import java.util.Scanner;
+
+/**
+ * 109 Intro to Programming ProjectOne
+ * By: Deirdre Barg
+ * Objective: Determine the perfect numbers between 1 and 200
+ * Pt 2: allow users to determine the upper limit of the search.
+ * I changed the data type of user input to be a long to prevent overflow issues
+ */
+public class ProjectOne {
+
+    static Scanner scanner = new Scanner(System.in); // Scanner is used to get input from user
+    /**
+     * Loops through all the numbers from 1 to the Users given Upper 
+     * Calls isPerfect check on each one
+     */
+    public static void findAllPefectNums(long upper) {
+        for (int num = 1; num < upper; num++) {
+            if (isPerfect(num)) {
+                System.out.println(num + " is a perfect number");
+            }
+        }
+        System.out.println();
+    }
+
+    /**
+     * Checks each number to see if its perfect
+     * @param num Number to be checked
+     * @return Boolean of yes it is perfect or no its not
+     */
+    public static boolean isPerfect(long num) {
+        long sumOfDivisors = 0;
+
+        // Loop to find all of the divisors of sum
+        for (long i = 1; i < num; i++) {
+            if (num % i == 0) {
+                sumOfDivisors += i;
+            }
+        }
+        return sumOfDivisors == num;
+
+    }
+
+    /**
+     * Asks user for Upper to Search for Perfect numbers
+     * @return The user Upper bound as a long to prevent overflow
+     */
+    public static long getUserUpper() {
+        System.out.println("Enter an upper limit to find perfect numbers!");
+        long upper = scanner.nextLong();
+        return upper;
+    }
+
+    // Nested loop in main performs before asking the user to select an upper bound as per project requirements 
+    //
+    public static void main(String[] args) {
+        //Checking for the perfect numbers between 1 and 200 with a nested loop
+        for (int num = 1; num < 200; num++) {
+            int sum = 0; // Sum is reset for each value
+            for (int i = 1; i < num; i++) { //Inner loop finds divisors and adds them to a sum
+                if (num % i == 0) {
+                    sum += i;
+                }
+            }
+            if (sum == num) {
+                System.out.println(num + " is a perfect number");
+            
+            }
+        }
+        long upper = getUserUpper();
+        findAllPefectNums(upper);
+    }
+
+}
